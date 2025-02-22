@@ -37,7 +37,12 @@ def save_config(config):
 class SerialBot(commands.Bot):
     def __init__(self):
         intents = discord.Intents.all()  # Enable all intents
-        super().__init__(command_prefix='!', intents=intents)
+        super().__init__(
+            command_prefix='!',
+            intents=intents,
+            allowed_contexts=app_commands.AppCommandContext(guild=True,dm_channel=True,private_channel=True),
+            allowed_installs=app_commands.AppInstallationType(guild=True,user=True)
+        )
         
         self.serial_connection = None
         self.config = load_config()
